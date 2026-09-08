@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bg_app"
+	android:orientation="vertical"
+	android:padding="16dp">
+
+	<!-- Header Banner Card -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:background="@drawable/bg_card_header"
+		android:gravity="center_horizontal"
+		android:orientation="vertical"
+		android:padding="24dp">
+
+		<ImageView
+			android:layout_width="56dp"
+			android:layout_height="56dp"
+			android:layout_marginBottom="12dp"
+			android:contentDescription="@string/app_title"
+			android:src="@drawable/ic_medical_cross" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/app_title"
+			android:textColor="@color/text_on_primary"
+			android:textSize="22sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:text="@string/app_subtitle"
+			android:textColor="#94A3B8"
+			android:textSize="14sp" />
+	</LinearLayout>
+
+	<!-- Instructions Card -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_marginBottom="16dp"
+		android:layout_weight="1"
+		android:background="@drawable/bg_card"
+		android:orientation="vertical"
+		android:padding="20dp">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<ImageView
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:contentDescription="@string/instructions_title"
+				android:src="@drawable/ic_info" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:text="@string/instructions_title"
+				android:textColor="@color/text_primary"
+				android:textSize="16sp"
+				android:textStyle="bold" />
+		</LinearLayout>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="12dp"
+			android:lineSpacingExtra="4dp"
+			android:text="@string/instruction_step1"
+			android:textColor="@color/text_secondary"
+			android:textSize="14sp" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="12dp"
+			android:lineSpacingExtra="4dp"
+			android:text="@string/instruction_step2"
+			android:textColor="@color/text_secondary"
+			android:textSize="14sp" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:lineSpacingExtra="4dp"
+			android:text="@string/instruction_step3"
+			android:textColor="@color/text_secondary"
+			android:textSize="14sp" />
+	</LinearLayout>
+
+	<!-- Start Simulation Button -->
+	<Button
+		android:id="@+id/button1"
+		android:layout_width="match_parent"
+		android:layout_height="56dp"
+		android:layout_marginBottom="12dp"
+		android:background="@drawable/bg_button_start"
+		android:drawableStart="@drawable/ic_stethoscope"
+		android:drawablePadding="12dp"
+		android:paddingStart="24dp"
+		android:paddingEnd="24dp"
+		android:text="@string/btn_start_simulation"
+		android:textAllCaps="false"
+		android:textColor="@color/text_on_primary"
+		android:textSize="18sp"
+		android:textStyle="bold" />
+
+</LinearLayout>

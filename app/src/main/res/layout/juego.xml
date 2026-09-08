@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bg_app"
+	android:orientation="vertical"
+	android:padding="16dp">
+
+	<!-- Header Card -->
+	<LinearLayout
+		android:id="@+id/linearHeader"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="12dp"
+		android:background="@drawable/bg_card"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		android:padding="16dp">
+
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/textview1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/symptoms_title"
+				android:textColor="@color/text_primary"
+				android:textSize="18sp"
+				android:textStyle="bold" />
+
+			<TextView
+				android:id="@+id/txtSubtituloHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="2dp"
+				android:text="@string/symptoms_subtitle"
+				android:textColor="@color/text_secondary"
+				android:textSize="12sp" />
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/txtContador"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@drawable/bg_badge"
+			android:paddingStart="12dp"
+			android:paddingTop="6dp"
+			android:paddingEnd="12dp"
+			android:paddingBottom="6dp"
+			android:text="0 Síntomas"
+			android:textColor="@color/badge_text"
+			android:textSize="13sp"
+			android:textStyle="bold" />
+	</LinearLayout>
+
+	<!-- Main List / Empty State Container -->
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_marginBottom="12dp"
+		android:layout_weight="1">
+
+		<!-- Empty State View -->
+		<LinearLayout
+			android:id="@+id/linearEmptyState"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/bg_card"
+			android:gravity="center"
+			android:orientation="vertical"
+			android:padding="24dp">
+
+			<ImageView
+				android:layout_width="64dp"
+				android:layout_height="64dp"
+				android:layout_marginBottom="16dp"
+				android:contentDescription="@string/empty_symptoms_title"
+				android:src="@drawable/ic_empty_state" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/empty_symptoms_title"
+				android:textColor="@color/text_primary"
+				android:textSize="16sp"
+				android:textStyle="bold" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:gravity="center"
+				android:text="@string/empty_symptoms_desc"
+				android:textColor="@color/text_muted"
+				android:textSize="14sp" />
+		</LinearLayout>
+
+		<!-- Symptom List -->
+		<ListView
+			android:id="@+id/listview1"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clipToPadding="false"
+			android:divider="@null"
+			android:dividerHeight="0dp"
+			android:scrollbars="none"
+			android:visibility="gone" />
+	</FrameLayout>
+
+	<!-- Action Buttons Area -->
+	<LinearLayout
+		android:id="@+id/linear3"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<Button
+			android:id="@+id/btnEscanear"
+			android:layout_width="0dp"
+			android:layout_height="52dp"
+			android:layout_marginEnd="6dp"
+			android:layout_weight="1"
+			android:background="@drawable/bg_button_scan"
+			android:drawableStart="@drawable/ic_qr_scan"
+			android:drawablePadding="8dp"
+			android:paddingStart="16dp"
+			android:paddingEnd="16dp"
+			android:text="@string/btn_scan_clue"
+			android:textAllCaps="false"
+			android:textColor="@color/text_on_primary"
+			android:textSize="14sp"
+			android:textStyle="bold" />
+
+		<Button
+			android:id="@+id/btnDiagnosticar"
+			android:layout_width="0dp"
+			android:layout_height="52dp"
+			android:layout_marginStart="6dp"
+			android:layout_weight="1"
+			android:background="@drawable/bg_button_diagnose"
+			android:drawableStart="@drawable/ic_stethoscope"
+			android:drawablePadding="8dp"
+			android:paddingStart="16dp"
+			android:paddingEnd="16dp"
+			android:text="@string/btn_diagnose"
+			android:textAllCaps="false"
+			android:textColor="@color/text_on_primary"
+			android:textSize="14sp"
+			android:textStyle="bold" />
+	</LinearLayout>
+</LinearLayout>

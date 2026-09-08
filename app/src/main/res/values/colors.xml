@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Brand / Header Colors -->
+	<color name="colorPrimary">#0F2537</color>
+	<color name="colorPrimaryDark">#091825</color>
+	<color name="colorAccent">#00A86B</color>
+
+	<!-- UI Palette -->
+	<color name="bg_app">#F1F5F9</color>
+	<color name="card_bg">#FFFFFF</color>
+	<color name="card_border">#CBD5E1</color>
+
+	<!-- Text Colors -->
+	<color name="text_primary">#0F172A</color>
+	<color name="text_secondary">#475569</color>
+	<color name="text_muted">#94A3B8</color>
+	<color name="text_on_primary">#FFFFFF</color>
+
+	<!-- Buttons & Status -->
+	<color name="btn_scan">#0284C7</color>
+	<color name="btn_scan_pressed">#0369A1</color>
+	<color name="btn_diagnose">#16A34A</color>
+	<color name="btn_diagnose_pressed">#15803D</color>
+	<color name="btn_start">#0F2537</color>
+	<color name="btn_start_pressed">#1A365D</color>
+	<color name="btn_disabled">#CBD5E1</color>
+	<color name="text_disabled">#94A3B8</color>
+
+	<!-- Accents -->
+	<color name="badge_bg">#E0F2FE</color>
+	<color name="badge_text">#0369A1</color>
+	<color name="medical_red">#DC2626</color>
+	<color name="symptom_chip_bg">#F8FAFC</color>
+
+	<color name="colorControlHighlight">#1E293B</color>
+	<color name="colorControlNormal">#64748B</color>
+</resources>

@@ -1,0 +1,19 @@
+<resources>
+	<string name="app_name" translatable="false">REI APH RA</string>
+	<string name="app_title">Simulador Toxidrómico APH</string>
+	<string name="app_subtitle">Atención Prehospitalaria</string>
+	<string name="instructions_title">Instrucciones de la Simulación</string>
+	<string name="instruction_step1">1. Escanea las pistas QR ubicadas en la escena o caso clínico.</string>
+	<string name="instruction_step2">2. Recolecta al menos 2 signos o síntomas descubiertos para habilitar el diagnóstico.</string>
+	<string name="instruction_step3">3. Analiza la clínica del paciente y arriesga tu diagnóstico toxicológico.</string>
+	<string name="btn_start_simulation">Iniciar Simulación</string>
+	<string name="symptoms_title">Síntomas Descubiertos</string>
+	<string name="symptoms_subtitle">Mínimo 2 síntomas para diagnosticar</string>
+	<string name="symptoms_count_plural">%1$d Síntomas</string>
+	<string name="symptoms_count_singular">%1$d Síntoma</string>
+	<string name="empty_symptoms_title">No hay síntomas registrados</string>
+	<string name="empty_symptoms_desc">Presiona \'Escanear Pista\' para escanear un código QR con síntomas del paciente.</string>
+	<string name="btn_scan_clue">Escanear Pista</string>
+	<string name="btn_diagnose">Diagnosticar</string>
+	<string name="clue_label">Pista #%1$d</string>
+</resources>
