@@ -102,10 +102,10 @@ public class JuegoActivity extends Activity {
 
 						if (reporteReal.contains(eleccion) && reporteReal.indexOf(eleccion) < 45) {
 							feedback.setTitle("✅ ¡Excelente deducción!");
-							feedback.setMessage("Tu diagnóstico (" + eleccion + ") es CORRECTO.\n\n📋 Análisis del sistema:\n\n" + reporteReal);
+							feedback.setMessage("Tu diagnóstico (" + eleccion + ") es CORRECTO.\n\n📋 " + reporteReal);
 						} else {
 							feedback.setTitle("❌ Diagnóstico incorrecto");
-							feedback.setMessage("Elegiste " + eleccion + ", pero la clínica apunta a otra cosa.\n\n📋 Análisis del sistema:\n\n" + reporteReal);
+							feedback.setMessage("Elegiste " + eleccion + ", pero la clínica apunta a otra cosa.\n\n📋 " + reporteReal);
 						}
 
 						feedback.setPositiveButton("Nuevo Caso / Reiniciar", new DialogInterface.OnClickListener() {
@@ -132,7 +132,7 @@ public class JuegoActivity extends Activity {
 					if (rawValue != null) {
 						try {
 							int numeroSintoma = Integer.parseInt(rawValue.trim());
-							if (numeroSintoma >= 0 && numeroSintoma < 18) {
+							if (numeroSintoma >= 0 && numeroSintoma < ToxidromeLogic.sintomasNombres.length) {
 								double val = (double) numeroSintoma;
 								if (listaNumeros.contains(val)) {
 									String emoji = ToxidromeLogic.sintomasEmojis[numeroSintoma];
@@ -214,6 +214,7 @@ public class JuegoActivity extends Activity {
 			TextView txtEmoji = view.findViewById(R.id.txtEmojiSintoma);
 			TextView txtNombre = view.findViewById(R.id.txtNombreSintoma);
 			TextView txtNumero = view.findViewById(R.id.txtNumeroSintoma);
+			ImageView imgEliminar = view.findViewById(R.id.imgEliminarSintoma);
 
 			Double num = getItem(position);
 			if (num != null) {
@@ -224,6 +225,20 @@ public class JuegoActivity extends Activity {
 				}
 			}
 			txtNumero.setText(getString(R.string.clue_label, position + 1));
+
+			imgEliminar.setOnClickListener(v -> {
+				if (position >= 0 && position < listaNumeros.size()) {
+					Double eliminado = listaNumeros.remove(position);
+					actualizarUI();
+					if (eliminado != null) {
+						int idx = eliminado.intValue();
+						if (idx >= 0 && idx < ToxidromeLogic.sintomasNombres.length) {
+							SketchwareUtil.showMessage(getApplicationContext(),
+									"🗑️ " + ToxidromeLogic.sintomasNombres[idx] + " eliminado.");
+						}
+					}
+				}
+			});
 
 			return view;
 		}

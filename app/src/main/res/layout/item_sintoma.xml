@@ -40,4 +40,14 @@
         android:textColor="@color/badge_text"
         android:textSize="12sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgEliminarSintoma"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Eliminar síntoma"
+        android:padding="8dp"
+        android:src="@drawable/ic_trash" />
 </LinearLayout>
