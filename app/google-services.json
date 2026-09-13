@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "78309891107",
+    "project_id": "rei-aph",
+    "storage_bucket": "rei-aph.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78309891107:android:85577729f7558c1f2b2596",
+        "android_client_info": {
+          "package_name": "com.rei.aph"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78309891107-tov13u3l1fjvn725pufb2ur6adifrlpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rei.aph",
+            "certificate_hash": "4c5a52ca42075d3552c3e5086695823f70f7bc6c"
+          }
+        },
+        {
+          "client_id": "78309891107-m7jq16s9hem1qkpbls1pdha655d72u2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcTdLzms258dnuE7VAEdGQ6ZQLO306T0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78309891107-m7jq16s9hem1qkpbls1pdha655d72u2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

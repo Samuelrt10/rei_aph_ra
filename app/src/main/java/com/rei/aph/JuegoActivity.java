@@ -1,5 +1,6 @@
 package com.rei.aph;
 
+import android.Manifest;
 import android.animation.*;
 import android.app.*;
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.app.FragmentManager;
 import android.content.*;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.*;
 import android.graphics.*;
 import android.graphics.drawable.*;
@@ -49,6 +51,8 @@ public class JuegoActivity extends Activity {
 
 	private SintomaAdapter adapter;
 	private GmsBarcodeScanner qrScanner;
+	
+	private long startTime;
 
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -61,6 +65,8 @@ public class JuegoActivity extends Activity {
 				.enableAutoZoom()
 				.build();
 		qrScanner = GmsBarcodeScanning.getClient(this, options);
+		
+		startTime = System.currentTimeMillis();
 
 		initialize(_savedInstanceState);
 		initializeLogic();
@@ -99,14 +105,51 @@ public class JuegoActivity extends Activity {
 						String eleccion = opciones[which];
 
 						AlertDialog.Builder feedback = new AlertDialog.Builder(JuegoActivity.this);
+						
+						boolean acierto = reporteReal.contains(eleccion) && reporteReal.indexOf(eleccion) < 45;
 
-						if (reporteReal.contains(eleccion) && reporteReal.indexOf(eleccion) < 45) {
+						if (acierto) {
 							feedback.setTitle("✅ ¡Excelente deducción!");
 							feedback.setMessage("Tu diagnóstico (" + eleccion + ") es CORRECTO.\n\n📋 " + reporteReal);
 						} else {
 							feedback.setTitle("❌ Diagnóstico incorrecto");
 							feedback.setMessage("Elegiste " + eleccion + ", pero la clínica apunta a otra cosa.\n\n📋 " + reporteReal);
 						}
+						
+						// Enviar datos a Firestore
+						long endTime = System.currentTimeMillis();
+						long tiempoDecisionSegundos = (endTime - startTime) / 1000;
+						
+						// 🔵 Aquí recuperamos los datos que guardamos en la pantalla de inicio (MainActivity)
+						SharedPreferences prefs = getSharedPreferences("APH_PREFS", MODE_PRIVATE);
+						String nombreEvaluador = prefs.getString("nombre_evaluador", "Anónimo");
+						String nivelEstudios = prefs.getString("nivel_estudios", "No especificado");
+						
+						// Extraemos el toxidrome ganador del motor como texto base para el registro
+						String toxidromeRealExtraido = "";
+						if (reporteReal.contains("•")) {
+							int indexPunto = reporteReal.indexOf("•");
+							int indexDosPuntos = reporteReal.indexOf(":", indexPunto);
+							if (indexPunto != -1 && indexDosPuntos != -1) {
+								toxidromeRealExtraido = reporteReal.substring(indexPunto + 2, indexDosPuntos).trim();
+							}
+						}
+						if(toxidromeRealExtraido.isEmpty()){
+						    toxidromeRealExtraido = "Desconocido";
+						}
+						
+						SimulationRecord record = new SimulationRecord(
+								nombreEvaluador,
+						        nivelEstudios,
+						        toxidromeRealExtraido,
+						        eleccion,
+						        acierto,
+						        tiempoDecisionSegundos,
+						        sintomasEnteros.size(),
+						        sintomasEnteros
+						);
+						
+						FirebaseManager.getInstance().uploadSimulationData(record);
 
 						feedback.setPositiveButton("Nuevo Caso / Reiniciar", new DialogInterface.OnClickListener() {
 							@Override
@@ -165,6 +208,7 @@ public class JuegoActivity extends Activity {
 
 	private void reiniciarSimulacion() {
 		listaNumeros.clear();
+		startTime = System.currentTimeMillis(); // Reiniciar el cronómetro para el nuevo caso
 		actualizarUI();
 		SketchwareUtil.showMessage(getApplicationContext(), "Simulación reiniciada. Puedes escanear un nuevo caso.");
 	}

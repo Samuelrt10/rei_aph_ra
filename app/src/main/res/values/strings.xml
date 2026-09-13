@@ -16,4 +16,15 @@
 	<string name="btn_scan_clue">Escanear Pista</string>
 	<string name="btn_diagnose">Diagnosticar</string>
 	<string name="clue_label">Pista #%1$d</string>
+
+	<!-- NIVELES DE ESTUDIO -->
+	<string-array name="niveles_estudio">
+		<item>Seleccione su nivel de estudios...</item>
+		<item>Médico especialista en toxicología clínica</item>
+		<item>Médico residente de toxicología clínica</item>
+		<item>Tecnólogo en atención prehospitalaria</item>
+		<item>Estudiante de la tecnología en atención prehospitalaria</item>
+		<item>Estudiante de medicina</item>
+		<item>Estudiante de internado de medicina</item>
+	</string-array>
 </resources>
