@@ -48,7 +48,10 @@
 
 ## 📊 Matriz de Síntomas y Códigos QR (0 a 23)
 
-Para preparar los casos clínicos en las sesiones de entrenamiento, genera códigos QR que contengan únicamente el **número entero** del síntoma (del 0 al 23):
+Para preparar los casos clínicos en las sesiones de entrenamiento, genera o imprime los códigos QR que contengan el **número entero** del síntoma (del 0 al 23):
+
+> [!TIP]
+> 📄 **Documento de Tarjetas Imprimibles:** Puedes descargar directamente el archivo PDF con todas las tarjetas de síntomas listas para imprimir e implementar en simulaciones clínicas: **[📥 Descargar Tarjetas_Simulacion_REI_APH_RA.pdf](docs/Tarjetas_Simulacion_REI_APH_RA.pdf)**.
 
 | Código QR | Emoji | Síntoma / Signo Clínico | Categoría / Relevancia |
 | :-: | :---: | :--- | :--- |
@@ -120,6 +123,8 @@ Los datos guardados en la colección `sesiones_simulacion` contienen la siguient
 
 ```
 rei_aph_ra/
+├── docs/
+│   └── Tarjetas_Simulacion_REI_APH_RA.pdf # PDF imprimible con las tarjetas QR para simulaciones
 ├── app/
 │   ├── build.gradle                   # Dependencias (Firebase, ML Kit, Google Auth, ViewBinding)
 │   ├── google-services.json           # Configuración del proyecto Firebase
@@ -152,15 +157,25 @@ rei_aph_ra/
 
 ---
 
-## 🚀 Compilación e Instalación
+## 🚀 Descarga e Instalación
 
-### Requisitos
+### 📲 Instalación Directa (Recomendado)
+Puedes descargar la aplicación e instalarla directamente en tu dispositivo Android sin necesidad de compilar el código:
+1. Ve a la sección de **[Releases / Lanzamientos](https://github.com/tu-usuario/rei_aph_ra/releases)** en este repositorio.
+2. Descarga el archivo ejecutable **`app-release.apk`** (o `app-debug.apk`) de la última versión publicada.
+3. Abre el archivo descargado en tu teléfono móvil Android e instálalo (asegúrate de permitir la instalación de aplicaciones de fuentes desconocidas si tu dispositivo lo solicita).
+
+---
+
+### 🛠️ Compilación para Desarrolladores
+
+#### Requisitos
 * **Android Studio:** Ladybug (2024.2.1) o superior recomendada.
 * **JDK:** Java 8 o Java 11.
 * **Android SDK:** `minSdkVersion 23` (Android 6.0) | `targetSdkVersion 34` (Android 14).
 * **Google Play Services:** Requerido en el dispositivo para el funcionamiento del escáner ML Kit y Google Sign-In.
 
-### Pasos para Compilar
+#### Pasos para Compilar
 1. Clona el repositorio en tu equipo local:
    ```bash
    git clone https://github.com/tu-usuario/rei_aph_ra.git
