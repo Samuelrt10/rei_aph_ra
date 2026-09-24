@@ -51,7 +51,7 @@
 Para preparar los casos clínicos en las sesiones de entrenamiento, genera o imprime los códigos QR que contengan el **número entero** del síntoma (del 0 al 23):
 
 > [!TIP]
-> 📄 **Documento de Tarjetas Imprimibles:** Puedes descargar directamente el archivo PDF con todas las tarjetas de síntomas listas para imprimir e implementar en simulaciones clínicas: **[📥 Descargar Tarjetas_Simulacion_REI_APH_RA.pdf](docs/Tarjetas_Simulacion_REI_APH_RA.pdf)**.
+> 📄 **Documento de Tarjetas Imprimibles:** Puedes descargar directamente el archivo PDF con todas las tarjetas de síntomas listas para imprimir e implementar en simulaciones clínicas: **[📥 Descargar Tarjetas_Simulacion_REI_APH_RA.pdf](https://github.com/Samuelrt10/rei_aph_ra/raw/master/docs/Tarjetas_Simulacion_REI_APH_RA.pdf)** *(o ver en el repositorio: [`docs/Tarjetas_Simulacion_REI_APH_RA.pdf`](./docs/Tarjetas_Simulacion_REI_APH_RA.pdf))*.
 
 | Código QR | Emoji | Síntoma / Signo Clínico | Categoría / Relevancia |
 | :-: | :---: | :--- | :--- |
@@ -161,7 +161,7 @@ rei_aph_ra/
 
 ### 📲 Instalación Directa (Recomendado)
 Puedes descargar la aplicación e instalarla directamente en tu dispositivo Android sin necesidad de compilar el código:
-1. Ve a la sección de **[Releases / Lanzamientos](https://github.com/tu-usuario/rei_aph_ra/releases)** en este repositorio.
+1. Ve a la sección de **[Releases / Lanzamientos](https://github.com/Samuelrt10/rei_aph_ra/releases)** en este repositorio.
 2. Descarga el archivo ejecutable **`app-release.apk`** (o `app-debug.apk`) de la última versión publicada.
 3. Abre el archivo descargado en tu teléfono móvil Android e instálalo (asegúrate de permitir la instalación de aplicaciones de fuentes desconocidas si tu dispositivo lo solicita).
 
@@ -178,7 +178,7 @@ Puedes descargar la aplicación e instalarla directamente en tu dispositivo Andr
 #### Pasos para Compilar
 1. Clona el repositorio en tu equipo local:
    ```bash
-   git clone https://github.com/tu-usuario/rei_aph_ra.git
+   git clone https://github.com/Samuelrt10/rei_aph_ra.git
    ```
 2. Abre la carpeta del proyecto en **Android Studio**.
 3. Asegúrate de contar con el archivo `app/google-services.json` configurado correctamente.
