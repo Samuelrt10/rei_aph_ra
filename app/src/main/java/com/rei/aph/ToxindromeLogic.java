@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-class ToxidromeLogic {
+public class ToxindromeLogic {
 
     public static final String[] sintomasEmojis = {
         "📉🫀", // 0: FC Baja
@@ -25,40 +25,44 @@ class ToxidromeLogic {
         "⬆️🔊", // 14: Ruidos Intestinales Altos
         "😵‍💫🧠", // 15: Delirio / Confusión
         "⚡🦵", // 16: Clonus / Espasmos
-        "🗣️⚡", // 17: Agitación Violenta
+        "🗣️⚡", // 17: Agitación
         "🔮👁️", // 18: Alucinaciones
         "👁️📍", // 19: Miosis Puntiforme
         "🚽🚫", // 20: Retención Urinaria
         "💤🧠", // 21: Coma / Somnolencia
         "🍎🔴", // 22: Rubicundez Cutánea
-        "🔇🔕"  // 23: Ruidos Intestinales Nulos
+        "🔇🔕", // 23: Ruidos Intestinales Nulos
+        "🧠⚡", // 24: Convulsiones
+        "🫀💥"  // 25: Dolor Torácico
     };
 
     public static final String[] sintomasNombres = {
-        "FC Baja (Bradicardia)",           // 0
-        "FC Alta (Taquicardia)",           // 1
-        "FR Baja (Bradipnea)",             // 2
-        "FR Alta (Taquipnea)",             // 3
-        "TA Baja (Hipotensión)",           // 4
-        "TA Alta (Hipertensión)",          // 5
-        "Temp Baja (Hipotermia)",          // 6
-        "Temp Alta (Hipertermia)",         // 7
-        "Miosis (Pupilas Pequeñas)",       // 8
-        "Midriasis (Pupilas Dilatadas)",   // 9
-        "Piel Sudorosa (Diaforesis)",      // 10
-        "Piel Seca",                       // 11
-        "Secreciones / Sialorrea",         // 12
-        "Ruidos Intestinales Bajos",       // 13
-        "Ruidos Intestinales Altos",       // 14
-        "Delirio / Confusión",             // 15
-        "Clonus / Espasmos",               // 16
-        "Agitación Violenta",              // 17
-        "Alucinaciones",                   // 18
-        "Miosis Puntiforme No Reactiva",   // 19
-        "Retención Urinaria",              // 20
-        "Coma / Glasgow Deteriorado",      // 21
-        "Rubicundez Cutánea",              // 22
-        "Ruidos Intestinales Nulos (Íleo)" // 23
+        "FC Baja (Bradicardia)",               // 0
+        "FC Alta (Taquicardia)",               // 1
+        "FR Baja (Bradipnea)",                 // 2
+        "FR Alta (Taquipnea)",                 // 3
+        "TA Baja (Hipotensión)",               // 4
+        "TA Alta (Hipertensión)",              // 5
+        "Temp Baja (Hipotermia)",              // 6
+        "Temp Alta (Hipertermia)",             // 7
+        "Miosis (Pupilas Pequeñas)",           // 8
+        "Midriasis (Pupilas Dilatadas)",       // 9
+        "Piel Sudorosa (Diaforesis)",          // 10
+        "Piel Seca",                           // 11
+        "Secreciones / Sialorrea",             // 12
+        "Ruidos Intestinales Bajos",           // 13
+        "Ruidos Intestinales Altos",           // 14
+        "Delirio / Confusión",                 // 15
+        "Clonus / Espasmos",                   // 16
+        "Agitación",                           // 17
+        "Alucinaciones",                       // 18
+        "Miosis Puntiforme No Reactiva",       // 19
+        "Retención Urinaria",                  // 20
+        "Coma / Glasgow Deteriorado",          // 21
+        "Rubicundez Cutánea",                  // 22
+        "Ruidos Intestinales Nulos (Íleo)",    // 23
+        "Convulsiones / Espasmos Tónicos",     // 24
+        "Dolor Torácico / Isquemia"            // 25
     };
 
     public static final String[] toxindromesNombres = {
@@ -79,23 +83,23 @@ class ToxidromeLogic {
      */
     public static final int[][] matrizC = {
         // 0: Hipnótico Sedante
-        // 0:FCB, 1:FCA, 2:FRB, 3:FRA, 4:TAB, 5:TAA, 6:TempB, 7:TempA, 8:Miosis, 9:Midr, 10:Sudor, 11:Seca, 12:Secr, 13:RuiB, 14:RuiA, 15:Deli, 16:Clon, 17:AgitV, 18:Aluc, 19:MiosP, 20:RetU, 21:Coma, 22:Rubi, 23:RuiN
-        {  2,     0,    2,    0,    2,    0,    1,     0,      0,        0,       0,        0,       0,       1,      0,      0,       0,      0,       0,      0,       0,     3,     0,      2    },
+        // 0:FCB, 1:FCA, 2:FRB, 3:FRA, 4:TAB, 5:TAA, 6:TempB, 7:TempA, 8:Mios, 9:Midr, 10:Sud, 11:Seca, 12:Secr, 13:RuiB, 14:RuiA, 15:Deli, 16:Clon, 17:Agit, 18:Aluc, 19:MiosP, 20:RetU, 21:Coma, 22:Rubi, 23:RuiN, 24:Conv, 25:DolT
+        {  2,     0,    2,    0,    2,    0,    1,     0,      0,       0,      0,       0,       0,       1,      0,      0,       0,      0,      0,      0,       0,     3,     0,      2,      0,       0    },
 
         // 1: Opioide
-        {  2,     0,    3,    0,    2,    0,    2,     0,      2,        0,       0,        0,       0,       1,      0,      0,       0,      0,       0,      3,       2,     3,     0,      2    },
+        {  2,     0,    3,    0,    2,    0,    2,     0,      2,       0,      0,       0,       0,       1,      0,      0,       0,      0,      0,      3,       2,     3,     0,      2,      0,       0    },
 
         // 2: Simpaticomimético
-        {  0,     2,    0,    2,    0,    2,    0,     2,      0,        2,       2,        0,       0,       1,      0,      1,       0,      3,       2,      0,       0,     0,     0,      0    },
+        {  0,     2,    0,    2,    0,    2,    0,     2,      0,       2,      2,       0,       0,       1,      0,      1,       0,      3,      2,      0,       0,     0,     0,      0,      2,       3    },
 
         // 3: Serotoninérgico
-        {  0,     2,    0,    2,    0,    2,    0,     3,      0,        2,       2,        0,       0,       0,      2,      2,       3,      2,       2,      0,       0,     0,     0,      0    },
+        {  0,     2,    0,    2,    0,    2,    0,     3,      0,       2,      2,       0,       0,       0,      2,      2,       3,      2,      2,      0,       0,     0,     0,      0,      2,       0    },
 
         // 4: Colinérgico
-        {  2,     1,    2,    1,    2,    1,    1,     0,      2,        0,       3,        0,       3,       0,      2,      0,       0,      1,       0,      3,       0,     2,     0,      0    },
+        {  2,     1,    2,    1,    2,    1,    1,     0,      2,       0,      3,       0,       3,       0,      2,      0,       0,      1,       0,      3,       0,     2,     0,      0,      2,       0    },
 
         // 5: Anticolinérgico
-        {  0,     2,    0,    1,    0,    2,    0,     3,      0,        3,       0,        3,       0,       1,      0,      3,       0,      3,       3,      0,       3,     1,     3,      3    }
+        {  0,     2,    0,    1,    0,    2,    0,     3,      0,       3,      0,       3,       0,       1,      0,      3,       0,      3,      3,      0,       3,     1,     3,      3,      2,       0    }
     };
 
     public static class Resultado implements Comparable<Resultado> {

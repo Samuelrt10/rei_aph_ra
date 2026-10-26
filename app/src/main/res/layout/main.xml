@@ -11,39 +11,57 @@
 		android:orientation="vertical"
 		android:padding="16dp">
 
-		<!-- Header Banner Card -->
-		<LinearLayout
+		<!-- Header Banner Card with Theme Toggle Button -->
+		<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="16dp"
-			android:background="@drawable/bg_card_header"
-			android:gravity="center_horizontal"
-			android:orientation="vertical"
-			android:padding="24dp">
+			android:layout_marginBottom="16dp">
 
-			<ImageView
-				android:layout_width="56dp"
-				android:layout_height="56dp"
-				android:layout_marginBottom="12dp"
-				android:contentDescription="@string/app_title"
-				android:src="@drawable/ic_medical_cross" />
-
-			<TextView
-				android:layout_width="wrap_content"
+			<LinearLayout
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="@string/app_title"
-				android:textColor="@color/text_on_primary"
-				android:textSize="22sp"
-				android:textStyle="bold" />
+				android:background="@drawable/bg_card_header"
+				android:gravity="center_horizontal"
+				android:orientation="vertical"
+				android:padding="24dp">
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
-				android:text="@string/app_subtitle"
-				android:textColor="#94A3B8"
-				android:textSize="14sp" />
-		</LinearLayout>
+				<ImageView
+					android:layout_width="56dp"
+					android:layout_height="56dp"
+					android:layout_marginBottom="12dp"
+					android:contentDescription="@string/app_title"
+					android:src="@drawable/ic_medical_cross" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/app_title"
+					android:textColor="@color/text_on_primary"
+					android:textSize="22sp"
+					android:textStyle="bold" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="4dp"
+					android:text="@string/app_subtitle"
+					android:textColor="#94A3B8"
+					android:textSize="14sp" />
+			</LinearLayout>
+
+			<ImageButton
+				android:id="@+id/btnToggleTheme"
+				android:layout_width="44dp"
+				android:layout_height="44dp"
+				android:layout_gravity="end|top"
+				android:layout_margin="12dp"
+				android:background="@drawable/bg_circle_white"
+				android:contentDescription="@string/desc_toggle_theme"
+				android:elevation="4dp"
+				android:padding="10dp"
+				android:scaleType="centerInside"
+				android:src="@drawable/ic_moon" />
+		</FrameLayout>
 
 		<!-- Evaluator Profile Card -->
 		<LinearLayout

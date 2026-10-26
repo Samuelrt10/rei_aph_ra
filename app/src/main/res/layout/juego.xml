@@ -42,6 +42,17 @@
 				android:textSize="12sp" />
 		</LinearLayout>
 
+		<ImageButton
+			android:id="@+id/btnToggleTheme"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_marginEnd="8dp"
+			android:background="@drawable/bg_badge"
+			android:contentDescription="@string/desc_toggle_theme"
+			android:padding="8dp"
+			android:scaleType="centerInside"
+			android:src="@drawable/ic_moon" />
+
 		<TextView
 			android:id="@+id/txtContador"
 			android:layout_width="wrap_content"
@@ -113,34 +124,58 @@
 
 	<!-- Action Buttons Area -->
 	<LinearLayout
-		android:id="@+id/linear3"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:orientation="vertical">
 
-		<Button
-			android:id="@+id/btnEscanear"
-			android:layout_width="0dp"
-			android:layout_height="52dp"
-			android:layout_marginEnd="6dp"
-			android:layout_weight="1"
-			android:background="@drawable/bg_button_scan"
-			android:drawableStart="@drawable/ic_qr_scan"
-			android:drawablePadding="8dp"
-			android:paddingStart="16dp"
-			android:paddingEnd="16dp"
-			android:text="@string/btn_scan_clue"
-			android:textAllCaps="false"
-			android:textColor="@color/text_on_primary"
-			android:textSize="14sp"
-			android:textStyle="bold" />
+		<!-- Row 1: Scanning Buttons (QR and NFC) -->
+		<LinearLayout
+			android:id="@+id/linear3"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
 
+			<Button
+				android:id="@+id/btnEscanear"
+				android:layout_width="0dp"
+				android:layout_height="52dp"
+				android:layout_marginEnd="4dp"
+				android:layout_weight="1"
+				android:background="@drawable/bg_button_scan"
+				android:drawableStart="@drawable/ic_qr_scan"
+				android:drawablePadding="6dp"
+				android:paddingStart="12dp"
+				android:paddingEnd="12dp"
+				android:text="@string/btn_scan_clue"
+				android:textAllCaps="false"
+				android:textColor="@color/text_on_primary"
+				android:textSize="13sp"
+				android:textStyle="bold" />
+
+			<Button
+				android:id="@+id/btnEscanearNFC"
+				android:layout_width="0dp"
+				android:layout_height="52dp"
+				android:layout_marginStart="4dp"
+				android:layout_weight="1"
+				android:background="@drawable/bg_button_scan"
+				android:drawableStart="@drawable/ic_nfc"
+				android:drawablePadding="6dp"
+				android:paddingStart="12dp"
+				android:paddingEnd="12dp"
+				android:text="@string/btn_scan_nfc"
+				android:textAllCaps="false"
+				android:textColor="@color/text_on_primary"
+				android:textSize="13sp"
+				android:textStyle="bold" />
+		</LinearLayout>
+
+		<!-- Row 2: Diagnose Button -->
 		<Button
 			android:id="@+id/btnDiagnosticar"
-			android:layout_width="0dp"
+			android:layout_width="match_parent"
 			android:layout_height="52dp"
-			android:layout_marginStart="6dp"
-			android:layout_weight="1"
+			android:layout_marginTop="8dp"
 			android:background="@drawable/bg_button_diagnose"
 			android:drawableStart="@drawable/ic_stethoscope"
 			android:drawablePadding="8dp"
@@ -149,7 +184,7 @@
 			android:text="@string/btn_diagnose"
 			android:textAllCaps="false"
 			android:textColor="@color/text_on_primary"
-			android:textSize="14sp"
+			android:textSize="15sp"
 			android:textStyle="bold" />
 	</LinearLayout>
 </LinearLayout>

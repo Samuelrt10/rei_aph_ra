@@ -36,6 +36,9 @@ android {
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	
+	// AndroidX AppCompat
+	implementation 'androidx.appcompat:appcompat:1.7.0'
+
 	// Escáner de Códigos QR nativo
 	implementation 'com.google.android.gms:play-services-code-scanner:16.1.0'
 	

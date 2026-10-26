@@ -3,7 +3,7 @@
 	<string name="app_title">Simulador Toxidrómico APH</string>
 	<string name="app_subtitle">Atención Prehospitalaria</string>
 	<string name="instructions_title">Instrucciones de la Simulación</string>
-	<string name="instruction_step1">1. Escanea las pistas QR ubicadas en la escena o caso clínico.</string>
+	<string name="instruction_step1">1. Escanea las pistas QR o tarjetas NFC ubicadas en la escena.</string>
 	<string name="instruction_step2">2. Recolecta al menos 2 signos o síntomas descubiertos para habilitar el diagnóstico.</string>
 	<string name="instruction_step3">3. Analiza la clínica del paciente y arriesga tu diagnóstico toxicológico.</string>
 	<string name="btn_start_simulation">Iniciar Simulación</string>
@@ -12,10 +12,17 @@
 	<string name="symptoms_count_plural">%1$d Síntomas</string>
 	<string name="symptoms_count_singular">%1$d Síntoma</string>
 	<string name="empty_symptoms_title">No hay síntomas registrados</string>
-	<string name="empty_symptoms_desc">Presiona \'Escanear Pista\' para escanear un código QR con síntomas del paciente.</string>
-	<string name="btn_scan_clue">Escanear Pista</string>
+	<string name="empty_symptoms_desc">Presiona \'Escanear QR\' o \'Escanear NFC\' para leer los síntomas del paciente.</string>
+	<string name="btn_scan_clue">Escanear QR</string>
+	<string name="btn_scan_nfc">Escanear NFC</string>
 	<string name="btn_diagnose">Diagnosticar</string>
 	<string name="clue_label">Pista #%1$d</string>
+
+	<string name="nfc_dialog_title">Lectura NFC Activa 📡</string>
+	<string name="nfc_dialog_msg">Acerca la etiqueta o tarjeta NFC al reverso de tu dispositivo para leer la pista.</string>
+	<string name="nfc_not_supported">⚠️ Este dispositivo no cuenta con sensor NFC.</string>
+	<string name="nfc_disabled">⚠️ El sensor NFC está desactivado. Por favor, actívalo en los ajustes de tu teléfono.</string>
+	<string name="desc_toggle_theme">Cambiar modo oscuro</string>
 
 	<!-- NIVELES DE ESTUDIO -->
 	<string-array name="niveles_estudio">
@@ -26,5 +33,6 @@
 		<item>Estudiante de la tecnología en atención prehospitalaria</item>
 		<item>Estudiante de medicina</item>
 		<item>Estudiante de internado de medicina</item>
+		<item>Evaluador internacional</item>
 	</string-array>
 </resources>

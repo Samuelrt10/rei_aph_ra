@@ -7,12 +7,14 @@
 
 **REI APH RA (Simulador Toxidrómico APH)** es una aplicación móvil Android de simulación médica orientada a la **Atención Prehospitalaria (APH)**, medicina de emergencias y toxicología clínica. Permite a docentes, estudiantes, paramédicos y profesionales de la salud recrear y resolver casos clínicos toxicológicos en tiempo real mediante el escaneo de pistas clínicas en códigos QR colocados en pacientes o escenarios de entrenamiento.
 
+> 📘 **Informe Técnico y Teórico en LaTeX:** Consulta la formulación matemática completa, las ecuaciones en espacio de estados y la matriz de ponderación clínica en el artículo en código LaTeX: **[📄 Informe_Teorico_Simulador_Toxidromico.tex](docs/Informe_Teorico_Simulador_Toxidromico.tex)**.
+
 ---
 
 ## 🚀 Novedades y Últimas Actualizaciones
 
 * 🔐 **Autenticación e Identificación con Google Sign-In:** Integración de Google Play Services Auth para autorellenar y verificar el nombre del evaluador con un solo toque.
-* 🎓 **Perfil del Evaluador y Selección de Nivel de Estudios:** Registra la categoría académica/profesional del usuario (Médico Especialista, Residente, Tecnólogo APH, Estudiante APH, Estudiante de Medicina, Interno) para fines estadísticos e investigación docente.
+* 🎓 **Perfil del Evaluador y Selección de Nivel de Estudios:** Registra la categoría académica/profesional del usuario (Médico Especialista, Residente, Tecnólogo APH, Estudiante APH, Estudiante de Medicina, Interno, Evaluador Internacional) para fines estadísticos e investigación docente.
 * ☁️ **Sincronización en la Nube con Cloud Firestore (`FirebaseManager`):** Registro automatizado de cada sesión de simulación en la nube mediante un patrón *Singleton Thread-Safe*, permitiendo la recolección de métricas clínicas centralizadas.
 * ⏱️ **Métricas de Rendimiento y Tiempo de Respuesta (`SimulationRecord`):** Captura de métricas analíticas en tiempo real:
   * Fecha y hora precisa de la simulación (`@ServerTimestamp`).
@@ -124,7 +126,8 @@ Los datos guardados en la colección `sesiones_simulacion` contienen la siguient
 ```
 rei_aph_ra/
 ├── docs/
-│   └── Tarjetas_Simulacion_REI_APH_RA.pdf # PDF imprimible con las tarjetas QR para simulaciones
+│   ├── Tarjetas_Simulacion_REI_APH_RA.pdf      # PDF imprimible con las tarjetas QR para simulaciones
+│   └── Informe_Teorico_Simulador_Toxidromico.tex # Artículo teórico completo en formato IEEE LaTeX
 ├── app/
 │   ├── build.gradle                   # Dependencias (Firebase, ML Kit, Google Auth, ViewBinding)
 │   ├── google-services.json           # Configuración del proyecto Firebase
@@ -161,9 +164,12 @@ rei_aph_ra/
 
 ### 📲 Instalación Directa (Recomendado)
 Puedes descargar la aplicación e instalarla directamente en tu dispositivo Android sin necesidad de compilar el código:
-1. Ve a la sección de **[Releases / Lanzamientos](https://github.com/Samuelrt10/rei_aph_ra/releases)** en este repositorio.
-2. Descarga el archivo ejecutable **`app-release.apk`** (o `app-debug.apk`) de la última versión publicada.
-3. Abre el archivo descargado en tu teléfono móvil Android e instálalo (asegúrate de permitir la instalación de aplicaciones de fuentes desconocidas si tu dispositivo lo solicita).
+* **[📥 Descargar APK Directo (app-debug.apk)](https://github.com/Samuelrt10/rei_aph_ra/raw/master/docs/app-debug.apk)** *(Última versión actualizada)*.
+* O ve a la sección de **[Releases / Lanzamientos](https://github.com/Samuelrt10/rei_aph_ra/releases)** para descargar versiones oficiales publicadas.
+
+**Pasos de Instalación:**
+1. Descarga el archivo ejecutable **`app-debug.apk`** en tu teléfono Android.
+2. Abre el archivo e instálalo (si el dispositivo lo solicita, otorga permisos para instalar aplicaciones de fuentes desconocidas).
 
 ---
 
