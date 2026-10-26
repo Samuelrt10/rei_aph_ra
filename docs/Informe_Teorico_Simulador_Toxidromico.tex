@@ -1,0 +1,180 @@
+\documentclass[conference,10pt,a4paper]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-noquoting,es-tabla]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\setcounter{MaxMatrixCols}{30}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Diseño e Implementación de un Simulador en Realidad Aumentada para Diagnóstico de Toxíndromes Mediante Modelado en Espacio de Estados Ampliado y Ponderación Fisiopatológica}
+
+\author{
+\IEEEauthorblockN{Atención Prehospitalaria (APH) y Grupo de Investigación REI}
+\IEEEauthorblockA{Proyecto de Simulación Médica y Toxicología de Emergencias\\
+\url{https://github.com/Samuelrt10/rei_aph_ra}}
+}
+
+\maketitle
+
+\begin{abstract}
+El reconocimiento rápido y certero de toxíndromes es una habilidad crítica para el personal de Atención Prehospitalaria (APH) y medicina de urgencias. Este documento describe el diseño lógico, algebraico y computacional de una herramienta educativa en Realidad Aumentada (RA) e interacción móvil utilizando un modelado en espacio de estados discreto ampliado. A diferencia de los simuladores convencionales basados en diagramas de flujo rígidos o estructuras condicionales frágiles, este sistema emplea una formulación matricial determinista con pesos de ponderación fisiopatológica ($0, 1, 2, 3$). El modelo procesa $24$ variables clínicas observadas sin imponer un orden secuencial en la evaluación del paciente, imitando la impredecibilidad de una escena de emergencia real. La arquitectura se complementa con un motor de escaneo nativo mediante Google Code Scanner (ML Kit) y un sistema de almacenamiento y analítica en la nube sobre Firebase Cloud Firestore para la evaluación continua del desempeño clínico.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Espacio de estados, toxíndromes, atención prehospitalaria, simulación médica, álgebra lineal, Firebase, ML Kit, matriz de ponderación.
+\end{IEEEkeywords}
+
+\section{Introducción}
+En la atención de emergencias médicas, la identificación temprana de los toxíndromes (la base de la toxicología clínica) ofrece una guía vital para iniciar tratamientos orientados y soporte de vida cuando se desconoce la sustancia tóxica ingerida o inhalada \cite{erickson2021}. Los toxíndromes se dividen principalmente según cómo alteran las funciones fisiológicas del organismo: depresores (disminuyen respuestas autonómicas y del SNC), excitadores (incrementan respuestas simpáticas o neurológicas) y mixtos/complejos.
+
+Tradicionalmente, la enseñanza prehospitalaria depende de la memorización de tablas estáticas o del seguimiento de algoritmos de decisión secuenciales. Para modernizar esta pedagogía, proponemos un simulador interactivo basado en códigos QR y Realidad Aumentada. El desafío de ingeniería radica en procesar las pistas clínicas que el estudiante descubre en el maniquí o escena de forma no lineal. Para evitar la rigidez de los bloques condicionales de software tradicionales (\texttt{if/else}), se estructuró un modelo algebraico discreto donde cada síntoma actúa como una variable de estado binaria, traduciendo el razonamiento clínico de APH a un cálculo matricial determinista de alta eficiencia computacional.
+
+\section{Modelado Matemático de la Clínica}
+El sistema se modela como un proceso de inferencia en espacio de estados, donde las variables ingresadas (hallazgos clínicos descubiertos en el paciente) actualizan dinámicamente el estado del diagnóstico.
+
+\subsection{El Perfil del Paciente (Vector de Entrada)}
+Se define el vector de entrada $u \in \{0,1\}^{24}$. Cada posición $j \in \{0, \dots, 23\}$ representa un síntoma o signo clínico observable \cite{erickson2021}. Un elemento $u_j = 1$ indica que el estudiante descubrió y escaneó esa pista en la escena, mientras que $u_j = 0$ indica que la variable aún no ha sido evaluada o no está presente.
+
+Las $24$ variables del vector de entrada corresponden a:
+\begin{itemize}
+    \item \textbf{Signos Vitales Cardiorrespiratorios:} $u_0$: FC baja (bradicardia), $u_1$: FC alta (taquicardia), $u_2$: FR baja (bradipnea), $u_3$: FR alta (taquipnea), $u_4$: TA baja (hipotensión), $u_5$: TA alta (hipertensión).
+    \item \textbf{Termorregulación:} $u_6$: Temp baja (hipotermia), $u_7$: Temp alta (hipertermia).
+    \item \textbf{Ocular / Oftálmico:} $u_8$: Miosis, $u_9$: Midriasis, $u_{19}$: Miosis puntiforme no reactiva (patognomónico de opioide).
+    \item \textbf{Tegumentarios y Exocrinos:} $u_{10}$: Piel sudorosa (diaforesis), $u_{11}$: Piel seca, $u_{12}$: Secreciones / sialorrea, $u_{22}$: Rubicundez cutánea (piel roja).
+    \item \textbf{Gastrointestinales y Genitourinarios:} $u_{13}$: Ruidos intestinales bajos, $u_{14}$: Ruidos intestinales altos, $u_{20}$: Retención urinaria, $u_{23}$: Ruidos intestinales nulos (íleo paralítico).
+    \item \textbf{Neurológicos y Estado Mental:} $u_{15}$: Delirio / confusión, $u_{16}$: Clonus / espasmos (clave en serotoninérgico), $u_{17}$: Agitación violenta, $u_{18}$: Alucinaciones, $u_{21}$: Coma / Glasgow deteriorado.
+\end{itemize}
+
+\subsection{Las Posibilidades (Vector de Salida)}
+Se define el vector de diagnóstico $y \in \mathbb{R}^6$, cuyas posiciones corresponden a los $6$ toxíndromes de mayor relevancia en el entorno prehospitalario:
+\begin{itemize}
+    \item $y_1$: Hipnótico / Sedante
+    \item $y_2$: Opioide
+    \item $y_3$: Simpaticomimético
+    \item $y_4$: Serotoninérgico
+    \item $y_5$: Colinérgico
+    \item $y_6$: Anticolinérgico
+\end{itemize}
+
+\subsection{La Matriz de Ponderación Fisiopatológica ($C \in \{0,1,2,3\}^{6 \times 24}$)}
+El núcleo de conocimiento está determinado por la matriz $C$. A diferencia de una matriz estrictamente binaria, se implementa una ponderación tridimensional según la especificidad médica:
+\begin{itemize}
+    \item \textbf{Peso 0:} Síntoma no asociado al cuadro.
+    \item \textbf{Peso 1:} Síntoma leve o inespecífico.
+    \item \textbf{Peso 2:} Síntoma moderado o característico.
+    \item \textbf{Peso 3:} Síntoma clave o patognomónico (máxima jerarquía).
+\end{itemize}
+
+La estructura completa de la matriz $C_{6 \times 24}$ se especifica en la Ecuación~(\ref{eq:matrizC}).
+
+\begin{figure*}[!t]
+\caption{Matriz de Ponderación Clínica $C_{6 \times 24}$ en Espacio de Estados}
+\label{eq:matrizC}
+\small
+\begin{equation}
+C = \begin{pmatrix}
+2 & 0 & 2 & 0 & 2 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 0 & 2 \\
+2 & 0 & 3 & 0 & 2 & 0 & 2 & 0 & 2 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 3 & 2 & 3 & 0 & 2 \\
+0 & 2 & 0 & 2 & 0 & 2 & 0 & 2 & 0 & 2 & 2 & 0 & 0 & 1 & 0 & 1 & 0 & 3 & 2 & 0 & 0 & 0 & 0 & 0 \\
+0 & 2 & 0 & 2 & 0 & 2 & 0 & 3 & 0 & 2 & 2 & 0 & 0 & 0 & 2 & 2 & 3 & 2 & 2 & 0 & 0 & 0 & 0 & 0 \\
+2 & 1 & 2 & 1 & 2 & 1 & 1 & 0 & 2 & 0 & 3 & 0 & 3 & 0 & 2 & 0 & 0 & 1 & 0 & 3 & 0 & 2 & 0 & 0 \\
+0 & 2 & 0 & 1 & 0 & 2 & 0 & 3 & 0 & 3 & 0 & 3 & 0 & 1 & 0 & 3 & 0 & 3 & 3 & 0 & 3 & 1 & 3 & 3
+\end{pmatrix}
+\end{equation}
+\hrulefill
+\end{figure*}
+
+\begin{table*}[!t]
+\caption{Matriz de Ponderación Fisiopatológica Detallada ($C_{6 \times 24}$)}
+\label{tab:matriz_pesos}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llccccccccccccccccccccccccc}
+\toprule
+\textbf{ID} & \textbf{Toxíndrome} & $u_0$ & $u_1$ & $u_2$ & $u_3$ & $u_4$ & $u_5$ & $u_6$ & $u_7$ & $u_8$ & $u_9$ & $u_{10}$ & $u_{11}$ & $u_{12}$ & $u_{13}$ & $u_{14}$ & $u_{15}$ & $u_{16}$ & $u_{17}$ & $u_{18}$ & $u_{19}$ & $u_{20}$ & $u_{21}$ & $u_{22}$ & $u_{23}$ & $\sum w_{\text{total}}$ \\
+\midrule
+$y_1$ & Hipnótico Sedante & 2 & 0 & 2 & 0 & 2 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 0 & 2 & \textbf{13 pts} \\
+$y_2$ & Opioide & 2 & 0 & 3 & 0 & 2 & 0 & 2 & 0 & 2 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 3 & 2 & 3 & 0 & 2 & \textbf{23 pts} \\
+$y_3$ & Simpaticomimético & 0 & 2 & 0 & 2 & 0 & 2 & 0 & 2 & 0 & 2 & 2 & 0 & 0 & 1 & 0 & 1 & 0 & 3 & 2 & 0 & 0 & 0 & 0 & 0 & \textbf{19 pts} \\
+$y_4$ & Serotoninérgico & 0 & 2 & 0 & 2 & 0 & 2 & 0 & 3 & 0 & 2 & 2 & 0 & 0 & 0 & 2 & 2 & 3 & 2 & 2 & 0 & 0 & 0 & 0 & 0 & \textbf{23 pts} \\
+$y_5$ & Colinérgico & 2 & 1 & 2 & 1 & 2 & 1 & 1 & 0 & 2 & 0 & 3 & 0 & 3 & 0 & 2 & 0 & 0 & 1 & 0 & 3 & 0 & 2 & 0 & 0 & \textbf{28 pts} \\
+$y_6$ & Anticolinérgico & 0 & 2 & 0 & 1 & 0 & 2 & 0 & 3 & 0 & 3 & 0 & 3 & 0 & 1 & 0 & 3 & 0 & 3 & 3 & 0 & 3 & 1 & 3 & 3 & \textbf{37 pts} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+\section{Motor de Inferencia Diagnóstica}
+El "cerebro" computacional del software cruza la información del vector de entrada escaneado $u$ con la matriz de conocimiento $C$ mediante cuatro pasos deterministas:
+
+\subsection{Cálculo de Puntos Obtenidos ($w_{\text{obtenido}, i}$)}
+Para cada toxíndrome $i \in \{1, \dots, 6\}$, se evalúa la suma ponderada del producto algebraico:
+\begin{equation}
+w_{\text{obtenido}, i} = \sum_{j=0}^{23} C_{i,j} \cdot u_j
+\end{equation}
+
+\subsection{Factor de Coherencia Clínica ($C_{\text{coherencia}, i}$)}
+Se define la coherencia como la fracción del cuadro clínico teórico cubierta por las pistas descubiertas:
+\begin{equation}
+C_{\text{coherencia}, i} = \frac{w_{\text{obtenido}, i}}{w_{\text{total}, i}}
+\end{equation}
+donde $w_{\text{total}, i} = \sum_{j=0}^{23} C_{i,j}$ representa la puntuación máxima del toxíndrome $i$.
+
+\subsection{Puntaje Bruto Ponderado ($\text{Puntaje Raw}_i$)}
+Para evitar falsos positivos derivados de síntomas inespecíficos aislados, el sistema premia la congruencia clínica completa multiplicando los puntos obtenidos por el factor de coherencia:
+\begin{equation}
+\text{Puntaje Raw}_i = w_{\text{obtenido}, i} \cdot \left(1.0 + C_{\text{coherencia}, i}\right)
+\end{equation}
+
+\subsection{Normalización Probabilística Relativa}
+La probabilidad relativa final para cada toxíndrome $i$ se expresa como un porcentaje escalar:
+\begin{equation}
+\text{Probabilidad}_i = \left( \frac{\text{Puntaje Raw}_i}{\sum_{k=1}^{6} \text{Puntaje Raw}_k} \right) \times 100\text{\%}
+\end{equation}
+
+\section{Arquitectura de Software y Analítica en la Nube}
+La solución está implementada en lenguaje Java de alto rendimiento para Android utilizando patrones de diseño limpios:
+\begin{itemize}
+    \item \textbf{Capa de Captura:} \texttt{GmsBarcodeScanner} de Google Play Services ML Kit, que ejecuta el reconocimiento de códigos QR (valores $0$ a $23$) con autoenfoque y zoom automático dinámico sin requerir permisos de cámara explícitos.
+    \item \textbf{Capa de Lógica:} \texttt{ToxindromeLogic.java}, módulo desacoplado de la UI que ejecuta las ecuaciones (1)-(5) de forma determinista.
+    \item \textbf{Capa de Persistencia y Métricas:} \texttt{FirebaseManager.java} (Singleton Thread-Safe) y modelo \texttt{SimulationRecord.java}, encargados de registrar automáticamente cada caso clínico en Cloud Firestore dentro de la colección \texttt{sesiones\_simulacion}.
+\end{itemize}
+
+Las métricas almacenadas en Firestore permiten el análisis en tiempo real de:
+\begin{enumerate}
+    \item Fecha y hora exacta de la simulación (\texttt{@ServerTimestamp}).
+    \item Perfil del evaluador y nivel de estudios (Médico Especialista, Residente, Tecnólogo APH, Estudiante APH, Estudiante de Medicina, Interno, Evaluador Internacional).
+    \item Tiempo de decisión clínica expresado en segundos.
+    \item Toxidrome deducido por el motor vs. toxidrome seleccionado por el estudiante.
+    \item Bandera booleana de acierto diagnóstico (\texttt{acierto}).
+    \item Secuencia cronológica y cantidad de síntomas escaneados.
+\end{enumerate}
+
+\section{Ventajas para el Entrenamiento Prehospitalario}
+Esta arquitectura de modelado en espacio de estados ofrece beneficios directos frente a los simuladores convencionales:
+\begin{itemize}
+    \item \textbf{Flexibilidad de Abordaje:} En una escena real, el paramédico puede revisar primero las pupilas, la piel o los signos vitales indistintamente. El álgebra lineal procesa las variables de estado en cualquier orden sin alterar el resultado.
+    \item \textbf{Complejidad Algorítmica Eficiente ($O(1)$ / $O(N)$):} El diagnóstico se ejecuta en tiempo constante respecto a la estructura de control, eliminando miles de líneas de sentencias condicionales anidadas.
+    \item \textbf{Escalabilidad Tecnológica:} Agregar un nuevo signo clínico sólo requiere añadir una columna a la matriz $C$, sin reescribir el motor de inferencia del software.
+    \item \textbf{Evaluación Basada en Datos:} La captura de tiempos de respuesta y secuencias de escaneo en la nube permite a los instructores identificar sesgos cognitivos o fallas recurrentes en el razonamiento del estudiante.
+\end{itemize}
+
+\section{Conclusión}
+Al organizar los toxíndromes en un espacio de estados discreto y ponderado, se logra un puente sólido entre el análisis de sistemas de ingeniería y el razonamiento clínico prehospitalario. El simulador resultante garantiza un entrenamiento dinámico, no lineal y científicamente medible, adaptado a la impredecibilidad del entorno prehospitalario.
+
+\begin{thebibliography}{1}
+\bibitem{erickson2021}
+E.~Erickson, \emph{Toxicología Clínica y Diagnóstico de Toxíndromes}, 3ra~ed.\hskip 1em plus 0.5em minus 0.4em\relax Madrid, España: Ediciones Médicas, 2021.
+\bibitem{goldfrank2019}
+L.~R. Goldfrank et~al., \emph{Goldfrank's Toxicologic Emergencies}, 11th~ed.\hskip 1em plus 0.5em minus 0.4em\relax New York, USA: McGraw-Hill Education, 2019.
+\bibitem{rei_aph_ra}
+\emph{Simulador Toxidrómico APH (REI APH RA) - Código Fuente y Documentación}, 2026. [En línea]. Disponible en: \url{https://github.com/Samuelrt10/rei_aph_ra}.
+\end{thebibliography}
+
+\end{document}
